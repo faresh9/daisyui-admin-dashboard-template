@@ -30,6 +30,10 @@ function DashboardTopBar({updateDashboardPeriod}){
             setDateValue(newValue); 
             updateDashboardPeriod(newValue)
         } 
+        const handleRefresh = () => {
+            // Reload the current page
+            window.location.reload();
+          };
 
 
     return(
@@ -57,7 +61,7 @@ function DashboardTopBar({updateDashboardPeriod}){
             /> */}
             </div>
             <div className="text-right ">
-                <button className="btn btn-ghost btn-sm normal-case"><ArrowPathIcon className="w-4 mr-2"/>Refresh Data</button>
+                <button onClick={handleRefresh} className="btn btn-ghost btn-sm normal-case"><ArrowPathIcon className="w-4 mr-2"/>Refresh Data</button>
                 <button className="btn btn-ghost btn-sm normal-case  ml-2"><ShareIcon className="w-4 mr-2"/>Share</button>
 
                 <div className="dropdown dropdown-bottom dropdown-end  ml-2">

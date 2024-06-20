@@ -1,7 +1,7 @@
 
 ![Logo](https://ik.imagekit.io/vu5t8xb15vzcx/tr:h-100/android-chrome-512x512_EiumvYoXeA.png?ik-sdk-version=javascript-1.4.3&updatedAt=1669548997842)
 
-# Daisy UI Admin Dashboard Template - DashWind 
+# Daisy UI Admin Dashboard Template - Ihsan 
 [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
 
 This is a free admin dashboard template that uses **Daisy UI** and React js. It has **fully customizable and themable CSS**  CSS and is powered by Tailwind CSS utility classes. Additionally, it comes with **redux toolkit** and other libraries already set up.

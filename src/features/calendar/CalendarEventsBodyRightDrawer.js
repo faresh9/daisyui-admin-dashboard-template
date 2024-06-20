@@ -1,3 +1,4 @@
+//frontend_new/src/features/calendar/CalendarEventsBodyRightDrawer.js
 import { CALENDAR_EVENT_STYLE } from "../../components/CalendarView/util"
 
 const THEME_BG = CALENDAR_EVENT_STYLE
