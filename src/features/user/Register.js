@@ -62,7 +62,7 @@ function Register() {
       // Handle successful registration
       localStorage.setItem('token', data.token); // Store the token in localStorage
       setLoading(false);
-      navigate('/app/welcome'); // Redirect to the welcome page using React Router's navigate function
+      navigate('app/settings-profile'); // Redirect to the welcome page using React Router's navigate function
 
     } catch (error) {
       console.error('Error:', error);

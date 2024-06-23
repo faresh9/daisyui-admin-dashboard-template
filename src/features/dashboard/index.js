@@ -1,3 +1,4 @@
+//frontend_new/src/features/dashboard/index.js
 import DashboardStats from './components/DashboardStats'
 import AmountStats from './components/AmountStats'
 import PageStats from './components/PageStats'
@@ -25,12 +26,7 @@ const statsData = [
     {title : "Active Users", value : "5.6k", icon : <UsersIcon className='w-8 h-8'/>, description : "↙ 300 (18%)"},
 ]
 
-const tasksData = [
-    "Complete the project report",
-    "Prepare for the meeting with the team",
-    "Send the project proposal to the client",
-    "Prepare the presentation for the workshop",
-]
+
 
 const habitsData = [
      "Read 20 pages of a book",
@@ -52,89 +48,76 @@ function Dashboard(){
     }
 
     const [tasks, setTasks] = useState([]);
-    
-    useEffect(() => {
-      const fetchTasks = async () => {
-        const token = localStorage.getItem('token');
-        if (!token) {
-          console.error('No token found');
-          return;
+    const [habits, setHabits] = useState([]);
+
+  useEffect(() => {
+    const fetchTasks = async () => {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        console.error('No token found');
+        return;
+      }
+
+      try {
+        const response = await fetch('http://localhost:3000/tasks', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to fetch tasks');
         }
-  
-        try {
-          const response = await fetch('http://localhost:3000/tasks', {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          });
-  
-          if (!response.ok) {
-            throw new Error('Failed to fetch tasks');
-          }
-  
-          const tasksData = await response.json();
-          setTasks(tasksData);
-        } catch (error) {
-          console.error('Error fetching tasks:', error);
+
+        const tasksData = await response.json();
+        setTasks(tasksData);
+      } catch (error) {
+        console.error('Error fetching tasks:', error);
+      }
+    };
+
+    const fetchHabits = async () => {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        console.error('No token found');
+        return;
+      }
+
+      try {
+        const response = await fetch('http://localhost:3000/habits', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to fetch habits');
         }
-      };
-  
-      fetchTasks();
-    }, []);
 
-    return(
-        <>
-        {/** ---------------------- Select Period Content ------------------------- */}
-            <DashboardTopBar updateDashboardPeriod={updateDashboardPeriod}/>
-        
-         {/**
-        {/** ---------------------- Different stats content 1 ------------------------- 
-            <div className="grid lg:grid-cols-4 mt-2 md:grid-cols-2 grid-cols-1 gap-6">
-                {
-                    statsData.map((d, k) => {
-                        return (
-                            <DashboardStats key={k} {...d} colorIndex={k}/>
-                        )
-                    })
-                }
-            </div>
+        const habitsData = await response.json();
+        setHabits(habitsData);
+      } catch (error) {
+        console.error('Error fetching habits:', error);
+      }
+    };
 
+    fetchTasks();
+    fetchHabits();
+  }, []);
 
+  return (
+    <>
+      {/** ---------------------- Select Period Content ------------------------- */}
+      <DashboardTopBar updateDashboardPeriod={updateDashboardPeriod} />
 
-        {/** ---------------------- Different charts ------------------------- */}
-            {/* <div className="grid lg:grid-cols-2 mt-4 grid-cols-1 gap-6">
-                <LineChart />
-                <BarChart />
-            </div> */}
-            
-        {/** ---------------------- Different stats content 2 ------------------------- */}
-        
-            {/* <div className="grid lg:grid-cols-2 mt-10 grid-cols-1 gap-6">
-                <AmountStats />
-                <PageStats />
-            </div> */}
+      {/** ---------------------- Dashboard Overview ------------------------- */}
+      <div className="mt-10 grid lg:grid-cols-2 grid-rows-1 grid-cols-1 gap-6">
+        <Overview tasks={tasks} habits={habits} />
+        <HabitTracker />
+        <Tasks />
+      </div>
+    </>
+  );
+};
 
-        {/** ---------------------- User source channels table  ------------------------- */}
-        
-            {/* <div className="grid lg:grid-cols-2 mt-4 grid-cols-1 gap-6">
-                <UserChannels />
-                <DoughnutChart />
-            </div> */}
-
-
-<div className="mt-10 grid lg:grid-cols-2 grid-rows-1 grid-cols-1 gap-6">
-  {/* <Clock /> */}
-  <Overview tasks={tasks} habits={habitsData} />
-  <HabitTracker />
-  <Tasks />
-  <Projects />
-  
-</div>
-
-            
-            
-        </>
-    )
-}
-
-export default Dashboard
+export default Dashboard;

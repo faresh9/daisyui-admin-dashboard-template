@@ -32,34 +32,34 @@ function Login() {
     setErrorMessage("") // Clear previous errors
     setLoading(true) // Set loading to true while fetching data
 
-  //   try {
-  //     const response = await fetch('http://localhost:3000/auth/login', {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json'
-  //       },
-  //       body: JSON.stringify({ email: loginObj.emailId, password: loginObj.password }) // Corrected JSON.stringify usage
-  //     });
+    try {
+      const response = await fetch('http://localhost:3000/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email: loginObj.emailId, password: loginObj.password }) // Corrected JSON.stringify usage
+      });
 
-  //     if (!response.ok) {
-  //       const responseBody = await response.text(); // Get response body for detailed error
-  //       setErrorMessage(`Login failed: ${responseBody}`);
-  //       setLoading(false);
-  //       return;
-  //     }
+      if (!response.ok) {
+        const responseBody = await response.text(); // Get response body for detailed error
+        setErrorMessage(`Login failed: ${responseBody}`);
+        setLoading(false);
+        return;
+      }
 
-  //     const data = await response.json();
+      const data = await response.json();
 
-  //     // Handle successful login
-  //     localStorage.setItem('token', data.token); // Store the token in localStorage
-  //     setLoading(false);
+      // Handle successful login
+      localStorage.setItem('token', data.token); // Store the token in localStorage
+      setLoading(false);
        navigate('/app/welcome'); // Redirect to the homepage using React Router's navigate function
 
-  //   } catch (error) {
-  //     console.error('Error:', error);
-  //     setErrorMessage('An error occurred. Please try again.');
-  //     setLoading(false);
-  //   }
+    } catch (error) {
+      console.error('Error:', error);
+      setErrorMessage('An error occurred. Please try again.');
+      setLoading(false);
+    }
   // 
   }
 
